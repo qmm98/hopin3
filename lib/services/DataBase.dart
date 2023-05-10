@@ -2,7 +2,11 @@
 
 // ignore_for_file: non_constant_identifier_names, unused_local_variable, missing_return, unused_catch_clause
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_app/models/ReviewModel.dart';
 import 'package:flutter_app/models/RidesModel.dart';
 import 'package:flutter_app/models/SearchModel.dart';
@@ -21,6 +25,7 @@ class Paths {
 class DataBase {
   final Authenticator auth;
   final db = FirebaseFirestore.instance;
+
   final GeoFlutterFire geo = GeoFlutterFire();
   DataBase({this.auth});
 
@@ -51,6 +56,19 @@ class DataBase {
       );
     }
     return generatedUserModel;
+  }
+
+  uploadtocloud(File file) async {
+    String currentUser = FirebaseAuth.instance.currentUser.uid;
+    Reference refroot = FirebaseStorage.instance.ref();
+    Reference imageroot = refroot.child('cards');
+    Reference imagetoupload = imageroot.child(currentUser);
+    imagetoupload.putFile(file);
+  }
+
+  isdriver(String xx) async {
+    String currentUser = await auth.getCurrentFireBaseUserID();
+    var reviewCollection = db.collection(Paths.UserModel);
   }
 
   Future<List<ReviewModel>> getCurrentUserReviews() async {
@@ -172,7 +190,7 @@ class DataBase {
     String fellowTravellerPhone = ride.fellowTraveler.phone;
 
     //search for this user
-    //update status of this user
+    //update status of this usera
     var userRideCollection = db.collection(Paths.UserRide);
     var query = userRideCollection
         .where('phone', isEqualTo: ride.phone)

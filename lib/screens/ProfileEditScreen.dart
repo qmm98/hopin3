@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/UserModel.dart';
 import 'package:flutter_app/screens/AuthScreen.dart';
+import 'package:flutter_app/screens/LoginScreen.dart';
 import 'package:flutter_app/screens/MyApp.dart';
 import 'package:flutter_app/services/DataBase.dart';
 import 'package:flutter_app/services/themes.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:toast/toast.dart';
 
 class ProfileEditScreen extends StatefulWidget {
@@ -27,6 +31,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
   String carInfo;
 
+  String role;
+
   bool hasGenderChanged = false;
 
   var darkBlueColor = Color.fromRGBO(26, 26, 48, 1.0);
@@ -34,6 +40,18 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   var lightBlueColor = Colors.blue;
 
   var lightGreyBackground = Color.fromRGBO(229, 229, 229, 1.0);
+
+  _getFromCamera() async {
+    XFile pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      File imageFile = File(pickedFile.path);
+      await DataBase().uploadtocloud(imageFile);
+    }
+  }
 
   void deleteAccount() async {
     var user = await widget.db.auth.getCurrentFireBaseUser();
@@ -45,6 +63,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         builder: (context) => AuthScreen(),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    phone = LoginScreen.v1;
+    super.initState();
   }
 
   void iconsClickEventHandler(BuildContext context, String iconName) async {
@@ -287,6 +311,22 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                       ),
                     ),
                   ],
+                ),
+                Visibility(
+                  visible: widget.isNewUser == true ? false : true,
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.fromLTRB(15.0, 25.0, 0.0, 0.0),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            await _getFromCamera();
+                          },
+                          child: Text('ID CARD'),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Card(
                   margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),

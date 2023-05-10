@@ -1,5 +1,7 @@
 android/annotation/SuppressLint.class
 android/annotation/TargetApi.class
+androidx/activity/result/contract/ActivityResultContracts$CreateDocument.class
+androidx/activity/result/contract/ActivityResultContracts$TakeVideo.class
 androidx/annotation/AnimRes.class
 androidx/annotation/AnimatorRes.class
 androidx/annotation/AnyRes.class
@@ -103,6 +105,7 @@ androidx/core/graphics/drawable/IconCompat$IconType.class
 androidx/core/location/GnssStatusCompat$ConstellationType.class
 androidx/core/location/LocationRequestCompat$Quality.class
 androidx/core/net/ConnectivityManagerCompat$RestrictBackgroundStatus.class
+androidx/core/os/TraceKt.class
 androidx/core/provider/FontsContractCompat$FontRequestCallback$FontRequestFailReason.class
 androidx/core/text/util/LinkifyCompat$LinkifyMask.class
 androidx/core/view/ContentInfoCompat$Flags.class
@@ -117,8 +120,11 @@ androidx/core/view/WindowInsetsAnimationCompat$Callback$DispatchMode.class
 androidx/core/view/WindowInsetsCompat$Type$InsetsType.class
 androidx/core/view/accessibility/AccessibilityEventCompat$ContentChangeType.class
 androidx/core/widget/TextViewCompat$AutoSizeTextType.class
+androidx/exifinterface/media/ExifInterface$ExifStreamType.class
+androidx/exifinterface/media/ExifInterface$IfdType.class
 androidx/lifecycle/Lifecycle$Event.class
 androidx/lifecycle/OnLifecycleEvent.class
+androidx/lifecycle/viewmodel/ViewModelFactoryDsl.class
 androidx/multidex/MultiDex$V14$ElementConstructor.class
 androidx/multidex/MultiDex$V14$ICSElementConstructor.class
 androidx/multidex/MultiDex$V14$JBMR11ElementConstructor.class
@@ -287,6 +293,7 @@ com/google/firebase/firestore/util/AsyncQueue.class
 com/google/firebase/firestore/util/Preconditions.class
 com/google/firebase/platforminfo/AutoValue_LibraryVersion.class
 com/google/firebase/platforminfo/LibraryVersion.class
+com/google/firebase/storage/StorageException$ErrorCode.class
 com/google/gson/annotations/Expose.class
 com/google/gson/annotations/JsonAdapter.class
 com/google/gson/annotations/SerializedName.class

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/models/ReviewModel.dart';
 
 class ReviewCard extends StatelessWidget {
-
-  final ReviewModel reviewModel; 
+  final ReviewModel reviewModel;
 
   const ReviewCard({
     @required this.reviewModel,
@@ -15,10 +14,10 @@ class ReviewCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
       child: ListTile(
         leading: CircleAvatar(
-            backgroundImage: new NetworkImage(
-                reviewModel.imageUrl)),
+            backgroundImage: new NetworkImage(reviewModel.imageUrl)),
         title: Text(reviewModel.name),
-        subtitle: Text(reviewModel.reviewText),
+        subtitle:
+            Text(reviewModel.reviewText == null ? '' : reviewModel.reviewText),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[

@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/LoginScreen.dart';
+import 'package:flutter_app/services/Authenticator.dart';
 import 'package:flutter_app/services/DataBase.dart';
 import 'package:flutter_app/models/ReviewModel.dart';
 import 'package:flutter_app/models/UserModel.dart';
@@ -21,7 +23,9 @@ class ProfileScreen extends StatelessWidget {
 
   var darkBlueColor = Color.fromRGBO(26, 26, 48, 1.0);
   var lightBlueColor = Colors.blue;
+  var logout = true;
   var lightGreyBackground = Color.fromRGBO(229, 229, 229, 1.0);
+  static final _auth = Authenticator();
 
   List<Widget> reviewCardsWidgetsFromList(List<ReviewModel> reviews) {
     List<Widget> reviewWidgetList = [];
@@ -99,7 +103,7 @@ class ProfileScreen extends StatelessWidget {
                     margin:
                         EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         IconButton(
                             icon: Icon(Icons.edit),
@@ -113,6 +117,19 @@ class ProfileScreen extends StatelessWidget {
                                         )),
                               );
                             }),
+                        IconButton(
+                            onPressed: () async => {
+                                  logout = await _auth.logout(),
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LoginScreen(
+                                        db: db,
+                                      ),
+                                    ),
+                                  )
+                                },
+                            icon: Icon(Icons.logout))
                       ],
                     ),
                   ),

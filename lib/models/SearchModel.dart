@@ -13,6 +13,7 @@ class SearchModel {
   String toText;
   LatLng fromCords;
   LatLng toCords;
+  int fare;
   DateTime searchDate;
   UserModel searcher;
 
@@ -21,6 +22,7 @@ class SearchModel {
   SearchModel({
     this.fromText,
     this.toText,
+    this.fare,
     this.fromCords,
     this.toCords,
     this.searchDate,
@@ -30,6 +32,7 @@ class SearchModel {
   SearchModel copyWith({
     String fromText,
     String toText,
+    int fare,
     LatLng fromCords,
     LatLng toCords,
     DateTime searchDate,
@@ -38,6 +41,7 @@ class SearchModel {
     return SearchModel(
       fromText: fromText ?? this.fromText,
       toText: toText ?? this.toText,
+      fare: fare ?? this.fare,
       fromCords: fromCords ?? this.fromCords,
       toCords: toCords ?? this.toCords,
       searchDate: searchDate ?? this.searchDate,
@@ -59,6 +63,7 @@ class SearchModel {
     return {
       'fromText': fromText,
       'toText': toText,
+      'fare': fare,
       'fromCords': fromLatLngtoGeoFirePoint(fromCords),
       'toCords': fromLatLngtoGeoFirePoint(toCords),
       'searchDate': searchDate?.millisecondsSinceEpoch,
@@ -81,6 +86,7 @@ class SearchModel {
     return SearchModel(
       fromText: map['fromText'],
       toText: map['toText'],
+      fare: map['fare'],
       fromCords: fromGeoPointToLatLng(map['fromCords']),
       toCords: fromGeoPointToLatLng(map['toCords']),
       searchDate: DateTime.fromMillisecondsSinceEpoch(map['searchDate']),
@@ -94,7 +100,7 @@ class SearchModel {
 
   @override
   String toString() {
-    return 'SearchModel(fromText: $fromText, toText: $toText, fromCords: $fromCords, toCords: $toCords, searchDate: $searchDate, searcher: $searcher)';
+    return 'SearchModel(fromText: $fromText, toText: $toText, fromCords: $fromCords, toCords: $toCords, searchDate: $searchDate, searcher: $searcher, fare: $fare)';
   }
 
   @override
@@ -106,6 +112,7 @@ class SearchModel {
         o.toText == toText &&
         o.fromCords == fromCords &&
         o.toCords == toCords &&
+        o.fare == fare &&
         o.searchDate == searchDate &&
         o.searcher == searcher;
   }
@@ -116,6 +123,7 @@ class SearchModel {
         toText.hashCode ^
         fromCords.hashCode ^
         toCords.hashCode ^
+        fare.hashCode ^
         searchDate.hashCode ^
         searcher.hashCode;
   }

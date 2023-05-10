@@ -1,5 +1,7 @@
 // ignore_for_file: unused_field, deprecated_member_use
 
+import 'dart:math';
+
 import 'package:datetime_picker_formfield_new/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/RidesModel.dart';
@@ -38,6 +40,7 @@ class _HomeScreenState extends State<ChrisHomeScreen> {
   GoogleMapController _mapController;
   double _originLatitude, _originLongitude;
   LatLng placeCords, startCords, endCords;
+  double distanceInKm, fare2;
   double _destLatitude, _destLongitude;
   Map<MarkerId, Marker> markers = {};
   Map<PolylineId, Polyline> polylines = {};
@@ -335,6 +338,9 @@ class _HomeScreenState extends State<ChrisHomeScreen> {
     if (_areFieldsFilled()) {
       _convertPolylineToRandPoints();
       randPoints.add(startCords);
+      distanceInKm = calculateDistance(startCords.latitude,
+          startCords.longitude, endCords.latitude, endCords.longitude);
+      fare2 = _getFare();
       setState(() {
         showStartingScreen = false;
         showCreate = true;
@@ -389,6 +395,19 @@ class _HomeScreenState extends State<ChrisHomeScreen> {
       LatLng temp = x;
       randPoints.add(temp);
     }
+  }
+
+  double _getFare() {
+    return distanceInKm * 4;
+  }
+
+  double calculateDistance(lat1, lon1, lat2, lon2) {
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 -
+        c((lat2 - lat1) * p) / 2 +
+        c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+    return 12742 * asin(sqrt(a));
   }
 
   _showToast(String message) {
@@ -497,6 +516,7 @@ class _HomeScreenState extends State<ChrisHomeScreen> {
         randPoints: randPoints,
         toLatLng: endCords,
         dateTime: dateTime,
+        fare: fare2.toInt(),
         driver: currentUser);
     var result = await widget.db.createRidesModel(ridesModel);
     if (result == null) {
@@ -559,7 +579,7 @@ class _HomeScreenState extends State<ChrisHomeScreen> {
         Align(
           alignment: Alignment.bottomLeft,
           child: SizedBox(
-            height: 250.0,
+            height: 300.0,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
@@ -709,7 +729,7 @@ class _HomeScreenState extends State<ChrisHomeScreen> {
               rideResultCard.ridesModel.randPoints[0], 14));
         }
       },
-      child: Container(width: 300, child: rideResultCard),
+      child: Container(width: 350, child: rideResultCard),
     );
   }
 

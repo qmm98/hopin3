@@ -9,17 +9,20 @@ enum Gender {
 class UserModel {
   String name;
   Gender gender;
+  String isdriver;
   String phone;
   String email;
   String carInfo;
   double rating;
   String uid;
+
   //
   //Constructor
   UserModel(
       {this.name,
       this.gender,
       this.phone,
+      this.isdriver,
       this.email,
       this.carInfo,
       this.rating,
@@ -44,13 +47,14 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(name: $name, gender: $gender, phone: $phone, email: $email, carInfo: $carInfo, rating: $rating, uid: $uid,)';
+    return 'UserModel(name: $name, gender: $gender, phone: $phone, email: $email, carInfo: $carInfo, rating: $rating, uid: $uid, isdriver: $isdriver)';
   }
 
   UserModel copyWith({
     String name,
     Gender gender,
     String phone,
+    String isdriver,
     String uid,
     String email,
     String carInfo,
@@ -60,6 +64,7 @@ class UserModel {
       name: name ?? this.name,
       gender: gender ?? this.gender,
       phone: phone ?? this.phone,
+      isdriver: isdriver ?? this.isdriver,
       uid: uid ?? this.uid,
       email: email ?? this.email,
       carInfo: carInfo ?? this.carInfo,
@@ -73,6 +78,7 @@ class UserModel {
       'gender': gender?.toString(),
       'phone': phone,
       'email': email,
+      'isdriver': isdriver,
       'uid': uid,
       'carInfo': carInfo,
       'rating': rating,
@@ -98,6 +104,7 @@ class UserModel {
       gender: gender,
       phone: map['phone'],
       email: map['email'],
+      isdriver: map['isdriver'],
       uid: map['uid'],
       carInfo: map['carInfo'],
       rating: map['rating'],
@@ -117,6 +124,7 @@ class UserModel {
         o.gender == gender &&
         o.phone == phone &&
         o.email == email &&
+        o.isdriver == isdriver &&
         o.uid == uid &&
         o.carInfo == carInfo &&
         o.rating == rating;
@@ -129,6 +137,7 @@ class UserModel {
         phone.hashCode ^
         email.hashCode ^
         uid.hashCode ^
+        isdriver.hashCode ^
         carInfo.hashCode ^
         rating.hashCode;
   }

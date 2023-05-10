@@ -47,6 +47,7 @@ class RideResultCard extends StatelessWidget {
             SizedBox(
               height: 3.0,
             ),
+            Text('Fare : Rs.' + ridesModel.fare.toString() + '0'),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: darkBlueColor,

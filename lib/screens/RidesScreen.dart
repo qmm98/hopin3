@@ -779,7 +779,7 @@ class _RidesScreenState extends State<RidesScreen> {
                 ),
                 ListTile(
                   leading: Icon(Icons.phone),
-                  title: Text(fellowTraveller.phone.substring(0, 9)),
+                  title: Text(fellowTraveller.uid),
                 ),
                 ListTile(
                   leading: Icon(Icons.email),

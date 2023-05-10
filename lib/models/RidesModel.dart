@@ -15,12 +15,14 @@ class RidesModel {
   LatLng toLatLng;
   DateTime dateTime;
   UserModel driver;
+  int fare;
 
   final GeoFlutterFire geo = GeoFlutterFire();
 
   RidesModel(
       {this.fromText,
       this.toText,
+      this.fare,
       this.randPoints,
       this.toLatLng,
       this.dateTime,
@@ -29,19 +31,20 @@ class RidesModel {
   RidesModel copyWith({
     String fromText,
     String toText,
+    int fare,
     List<LatLng> randPoints,
     LatLng toLatLng,
     DateTime dateTime,
     UserModel driver,
   }) {
     return RidesModel(
-      fromText: fromText ?? this.fromText,
-      toText: toText ?? this.toText,
-      randPoints: randPoints ?? this.randPoints,
-      toLatLng: toLatLng ?? this.toLatLng,
-      dateTime: dateTime ?? this.dateTime,
-      driver: driver ?? this.driver,
-    );
+        fromText: fromText ?? this.fromText,
+        toText: toText ?? this.toText,
+        randPoints: randPoints ?? this.randPoints,
+        toLatLng: toLatLng ?? this.toLatLng,
+        dateTime: dateTime ?? this.dateTime,
+        driver: driver ?? this.driver,
+        fare: fare ?? this.fare);
   }
 
   Map fromLatLngtoGeoFirePoint(LatLng latLng) {
@@ -62,7 +65,8 @@ class RidesModel {
           randPoints?.map((x) => fromLatLngtoGeoFirePoint(x))?.toList(),
       'toLatLng': fromLatLngtoGeoFirePoint(toLatLng),
       'dateTime': dateTime?.millisecondsSinceEpoch,
-      'driver': driver?.toMap()
+      'driver': driver?.toMap(),
+      'fare': fare
     };
   }
 
@@ -77,17 +81,16 @@ class RidesModel {
       };
       return LatLng(point.latitude, point.longitude);
     }
-    
 
     return RidesModel(
-      fromText: map['fromText'],
-      toText: map['toText'],
-      randPoints: List<LatLng>.from(
-          map['randPoints']?.map((x) => fromGeoPointToLatLng(x))),
-      toLatLng: fromGeoPointToLatLng(map['toLatLng']),
-      dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime']),
-      driver: UserModel.fromMap(map['driver']),
-    );
+        fromText: map['fromText'],
+        toText: map['toText'],
+        randPoints: List<LatLng>.from(
+            map['randPoints']?.map((x) => fromGeoPointToLatLng(x))),
+        toLatLng: fromGeoPointToLatLng(map['toLatLng']),
+        dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime']),
+        driver: UserModel.fromMap(map['driver']),
+        fare: map['fare']);
   }
 
   //String toJson() => json.encode(toMap());
@@ -96,7 +99,7 @@ class RidesModel {
 
   @override
   String toString() {
-    return 'RidesModel(fromText: $fromText, toText: $toText, randPoints: $randPoints, toLatLng: $toLatLng, dateTime: $dateTime, driver: $driver)';
+    return 'RidesModel(fromText: $fromText, toText: $toText, randPoints: $randPoints, toLatLng: $toLatLng, dateTime: $dateTime, driver: $driver, fare: $fare)';
   }
 
   @override
@@ -109,7 +112,8 @@ class RidesModel {
         listEquals(o.randPoints, randPoints) &&
         o.toLatLng == toLatLng &&
         o.dateTime == dateTime &&
-        o.driver == driver;
+        o.driver == driver &&
+        o.fare == fare;
   }
 
   @override
@@ -119,6 +123,7 @@ class RidesModel {
         randPoints.hashCode ^
         toLatLng.hashCode ^
         dateTime.hashCode ^
+        fare.hashCode ^
         driver.hashCode;
   }
 }

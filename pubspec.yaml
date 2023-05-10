@@ -32,6 +32,8 @@ dependencies:
   firebase_auth: ^4.1.5
   cloud_firestore: ^4.1.0
   google_sign_in: ^6.1.0
+  path: ^1.8.0
+  image_picker: ^0.8.4
   sign_button: ^2.0.3
   google_maps_flutter: ^2.2.1
   flutter_polyline_points: ^1.0.0
@@ -44,13 +46,14 @@ dependencies:
   datetime_picker_formfield_new: ^2.0.0
   flutter_rating_bar: ^4.0.1
   permission_handler: ^10.2.0
+  flutter_launcher_icons: ^0.13.1
+  firebase_storage: ^11.1.2
   
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_launcher_icons: "^0.7.3"
 
 flutter_icons:
   android: true
